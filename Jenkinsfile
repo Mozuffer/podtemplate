@@ -14,8 +14,8 @@ podTemplate(containers: [
         }
 	stage('Run Helm') {
 	  container('helm') {
-	    stage('List all helm chart') {
-            	sh 'helm ls --all-namespaces'
+	    stage('Install node-app helm chart') {
+            	sh 'helm upgrade  --install node-app helm/node-app'
 	   }
 	}
         }
