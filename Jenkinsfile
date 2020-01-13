@@ -3,15 +3,18 @@ podTemplate(containers: [
 	containerTemplate(name: 'helm', image: 'alpine/helm:3.0.2', ttyEnabled: true, command: 'cat')],
 	volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]) {
     node(POD_LABEL) {
+	git 'https://github.com/Mozuffer/podtemplate.git'
+	env.GIT_COMMIT = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+
         stage('build') {
-            git 'https://github.com/Mozuffer/podtemplate.git'
 	    container('docker'){
-		sh 'docker build -t uqudo.azurecr.io/node-app:latest .'
+		sh 'docker build -t uqudo.azurecr.io/node-app:${env.GIT_COMMIT} .'
 		docker.withRegistry('https://uqudo.azurecr.io', 'uqudo-acr') {
-		sh 'docker push uqudo.azurecr.io/node-app:latest'
+		sh 'docker push uqudo.azurecr.io/node-app:${env.GIT_COMMIT}'
             } 
 	   }
         }
+	
 	stage('Run Helm') {
 	  container('helm') {
 	    stage('Install node-app helm chart') {
