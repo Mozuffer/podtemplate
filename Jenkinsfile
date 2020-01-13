@@ -18,7 +18,7 @@ podTemplate(containers: [
 	stage('Run Helm') {
 	  container('helm') {
 	    stage('Install node-app helm chart') {
-            	sh 'helm upgrade --install node-app helm/node-app -n default'
+            	sh 'helm upgrade --install node-app helm/node-app --set image.tag=${GIT_COMMIT} -n default'
 	   }
 	}
         }
