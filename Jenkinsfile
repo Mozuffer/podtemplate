@@ -15,7 +15,7 @@ podTemplate(containers: [
 	stage('Run Helm') {
 	  container('helm') {
 	    stage('Install node-app helm chart') {
-            	sh 'helm upgrade  --install node-app helm/node-app'
+            	sh 'helm upgrade --install node-app helm/node-app -n default'
 	   }
 	}
         }
