@@ -6,9 +6,9 @@ podTemplate(containers: [
         stage('build') {
             git 'https://github.com/Mozuffer/podtemplate.git'
 	    container('docker'){
-		sh 'docker build -t uqudo.azurecr.io:443/node-app:latest .'
+		sh 'docker build -t uqudo.azurecr.io/node-app:latest .'
 		docker.withRegistry('https://uqudo.azurecr.io', 'uqudo-acr') {
-		sh 'docker push uqudo.azurecr.io:443/node-app:latest'
+		sh 'docker push uqudo.azurecr.io/node-app:latest'
             } 
 	   }
         }
