@@ -8,9 +8,9 @@ podTemplate(containers: [
 
         stage('build') {
 	    container('docker'){
-		sh 'docker build -t uqudo.azurecr.io/node-app:${env.GIT_COMMIT} .'
+		sh 'docker build -t uqudo.azurecr.io/node-app:${GIT_COMMIT} .'
 		docker.withRegistry('https://uqudo.azurecr.io', 'uqudo-acr') {
-		sh 'docker push uqudo.azurecr.io/node-app:${env.GIT_COMMIT}'
+		sh 'docker push uqudo.azurecr.io/node-app:${GIT_COMMIT}'
             } 
 	   }
         }
