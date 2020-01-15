@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nginx
+  name: node-app
   annotations:
     kubernetes.io/ingress.class: traefik
     #    traefik.ingress.kubernetes.io/service-weights: |
